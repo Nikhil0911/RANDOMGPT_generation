@@ -26,6 +26,11 @@ def calculate_joint_probability_density(X, k=5):
 # Calculate the joint probability density using D-K-NN Scheme 3
 joint_prob_density = calculate_joint_probability_density(X, k=5)
 
-# Print the joint probability density for each data point
-for i, jpd in enumerate(joint_prob_density):
-    print(f"Data point {i+1}: {jpd}")
+# Create a contour plot to visualize the joint probability density
+plt.figure(figsize=(8, 6))
+plt.scatter(X[:, 0], X[:, 1], c=joint_prob_density, cmap='viridis', edgecolors='k')
+plt.colorbar(label='Joint Probability Density')
+plt.xlabel('Dimension 1')
+plt.ylabel('Dimension 2')
+plt.title('Joint Probability Density Estimation using D-K-NN Scheme 3')
+plt.show()
