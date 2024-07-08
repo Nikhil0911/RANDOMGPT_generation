@@ -1,0 +1,97 @@
+import boto3
+import os
+import zipfile
+import pandas as pd
+import time
+
+# AWS credentials
+aws_access_key_id = 'your_access_key_id'
+aws_secret_access_key = 'your_secret_access_key'
+
+# Endpoint URL
+endpoint_url = 'your_endpoint_url'
+
+# S3 bucket and folder
+bucket_name = 'your_bucket_name'
+prefix = 'your_folder_prefix'  # if any specific prefix, else ''
+
+# Local directory to save zip files
+local_download_path = '/path/to/local/download/directory'
+
+# Function to download and extract zip files
+def download_and_extract_zip(s3_client, bucket, file_key, local_dir):
+    local_zip_file = os.path.join(local_dir, os.path.basename(file_key))
+    s3_client.download_file(bucket, file_key, local_zip_file)
+    with zipfile.ZipFile(local_zip_file, 'r') as zip_ref:
+        zip_ref.extractall(local_dir)
+
+# Function to concatenate CSV files
+def concatenate_csv_files(csv_files):
+    dfs = []
+    for csv_file in csv_files:
+        df = pd.read_csv(csv_file)
+        dfs.append(df)
+    concatenated_df = pd.concat(dfs, ignore_index=True)
+    return concatenated_df
+
+# Measure time function
+def measure_time(start_time, step_name):
+    elapsed_time = time.time() - start_time
+    print(f"Time taken for {step_name}: {elapsed_time:.2f} seconds")
+
+# Initialize S3 client
+session = boto3.Session(
+    aws_access_key_id=aws_access_key_id,
+    aws_secret_access_key=aws_secret_access_key,
+)
+s3_client = session.client('s3', endpoint_url=endpoint_url)
+
+# Step 1: List all folders and files
+start_time = time.time()
+
+folders = []
+files = []
+
+paginator = s3_client.get_paginator('list_objects_v2')
+for result in paginator.paginate(Bucket=bucket_name, Prefix=prefix, Delimiter='/'):
+    if result.get('CommonPrefixes') is not None:
+        folders.extend([prefix['Prefix'] for prefix in result.get('CommonPrefixes')])
+    if result.get('Contents') is not None:
+        files.extend([file['Key'] for file in result.get('Contents')])
+
+measure_time(start_time, "Listing folders and files")
+
+# Step 2: Filter and extract zip files
+zip_files = [file for file in files if file.endswith('.zip')]
+
+# Step 3: Download zip files locally
+start_time = time.time()
+
+if not os.path.exists(local_download_path):
+    os.makedirs(local_download_path)
+
+for zip_file in zip_files:
+    download_and_extract_zip(s3_client, bucket_name, zip_file, local_download_path)
+
+measure_time(start_time, "Downloading and extracting zip files")
+
+# Step 4: Read and concatenate CSV files
+start_time = time.time()
+
+csv_files = [os.path.join(local_download_path, file) for file in os.listdir(local_download_path) if file.endswith('.csv')]
+concatenated_df = concatenate_csv_files(csv_files)
+
+measure_time(start_time, "Reading and concatenating CSV files")
+
+# Display concatenated DataFrame
+print(concatenated_df.head())
+
+# Step 5: Optionally, clean up downloaded files if needed
+# for file in os.listdir(local_download_path):
+#     file_path = os.path.join(local_download_path, file)
+#     if os.path.isfile(file_path):
+#         os.remove(file_path)
+
+# Final time measurement
+total_elapsed_time = time.time() - start_time
+print(f"Total time taken: {total_elapsed_time:.2f} seconds")
