@@ -3,17 +3,28 @@ from dash import dcc, html, Input, Output
 import pandas as pd
 import numpy as np
 
-# Simulate sample data
+# Improved data generation
+np.random.seed(42)
+
+# Define regions, assets, sub-assets, tenors, and counterparty types
+regions = ['US', 'UK', 'APAC', 'EMEA', 'LATAM']
+assets = ['FX', 'Commodity', 'Equity', 'Rates', 'Credit']
+sub_assets = ['FX Swaps', 'FX Options', 'Oil', 'Gold', 'Equity Derivatives']
+tenors = ['Short', 'Medium', 'Long']
+counterparty_types = ['Street', 'Internal']
+
+# Generate sample data
 data = {
-    'Region': ['US', 'UK', 'APAC', 'EMEA', 'LATAM'] * 20,
-    'Asset': ['FX', 'Commodity', 'Equity', 'Rates', 'Credit'] * 20,
-    'Sub-Asset': ['FX Swaps', 'FX Options', 'Oil', 'Gold', 'Equity Derivatives'] * 20,
-    'Tenor': ['Short', 'Medium', 'Long'] * 33 + ['Short'],
-    'Amount': np.random.randint(100, 1000, 100),
-    'Threshold': np.random.randint(50, 200, 100),
-    'Counterparty': [f'CP-{i}' for i in range(1, 21)] * 5,
-    'Alerts': np.random.randint(0, 10, 100),
-    'Month': ['November'] * 100
+    'Region': np.random.choice(regions, 500),
+    'Asset': np.random.choice(assets, 500),
+    'Sub-Asset': np.random.choice(sub_assets, 500),
+    'Tenor': np.random.choice(tenors, 500),
+    'Amount': np.random.lognormal(mean=6, sigma=0.5, size=500),  # Log-normal distribution for Amount
+    'Threshold': np.random.randint(50, 200, 500),
+    'Counterparty': [f'CP-{i}' for i in np.random.randint(1, 101, 500)],
+    'Counterparty Type': np.random.choice(counterparty_types, 500),
+    'Alerts': np.random.randint(0, 15, 500),
+    'Month': ['November'] * 500
 }
 df = pd.DataFrame(data)
 
@@ -83,11 +94,14 @@ def update_dashboard(selected_asset, selected_sub_asset, selected_tenor):
     ]
 
     # Metrics
+    street_count = len(filtered_df[filtered_df['Counterparty Type'] == 'Street'])
+    internal_count = len(filtered_df[filtered_df['Counterparty Type'] == 'Internal'])
     metrics = [
         html.P(f"Month: {filtered_df['Month'].iloc[0]}"),
         html.P(f"Current Threshold: ${filtered_df['Threshold'].mean():.2f}"),
         html.P(f"Count of Trades: {len(filtered_df)}"),
-        html.P(f"Count of Counterparties: {filtered_df['Counterparty'].nunique()}")
+        html.P(f"Street Counterparties: {street_count}"),
+        html.P(f"Internal Counterparties: {internal_count}")
     ]
 
     # Alerts Count by Region
