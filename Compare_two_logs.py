@@ -123,3 +123,5 @@ def compare_logs(file1_path, file2_path, output_excel):
 
 # Example usage
 compare_logs("file1.log", "file2.log", "log_comparison_filtered.xlsx")
+
+#==========
