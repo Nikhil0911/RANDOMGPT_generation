@@ -1,65 +1,5 @@
 import pandas as pd
 
-def compare_logs(file1_path, file2_path, output_excel):
-    # Read log files
-    with open(file1_path, 'r') as f1, open(file2_path, 'r') as f2:
-        logs1 = f1.readlines()
-        logs2 = f2.readlines()
-    
-    # Data for Excel
-    comparison_data = []
-    
-    # Create a mapping of line numbers for File 1 logs for quick lookup
-    file1_map = {line.strip(): idx + 1 for idx, line in enumerate(logs1)}
-
-    for idx2, line2 in enumerate(logs2):
-        log2 = line2.strip()
-        exact_match = "No"
-        approx_match = "No"
-        approx_line_numbers = []
-        difference = ""
-        
-        # Exact match check
-        if idx2 < len(logs1) and logs1[idx2].strip() == log2:
-            exact_match = "Yes"
-        
-        # Approximate match check
-        if log2 in file1_map:
-            approx_match = "Yes"
-            approx_line_numbers.append(file1_map[log2])
-        
-        # Highlighting difference
-        if approx_match == "Yes" and exact_match == "No":
-            diff_lines = [logs1[ln - 1].strip() for ln in approx_line_numbers]
-            difference = " | ".join(diff_lines)
-        
-        # Record the comparison
-        comparison_data.append({
-            "File 1 Line No.": idx2 + 1 if idx2 < len(logs1) else "",
-            "Log from File 1": logs1[idx2].strip() if idx2 < len(logs1) else "",
-            "File 2 Line No.": idx2 + 1,
-            "Log from File 2": log2,
-            "Exact Match": exact_match,
-            "Approx Match": approx_match,
-            "Approx Line No.": ", ".join(map(str, approx_line_numbers)),
-            "Difference": difference
-        })
-
-    # Convert to DataFrame
-    df = pd.DataFrame(comparison_data)
-    
-    # Save to Excel
-    df.to_excel(output_excel, index=False)
-    print(f"Comparison saved to {output_excel}")
-
-# Example usage
-compare_logs("file1.log", "file2.log", "log_comparison.xlsx")
-
-#------------------------------
-
-import pandas as pd
-import re
-
 def extract_log_details(log_line):
     """
     Extract log type (Info/Error) and log message (excluding date) from a log line.
@@ -72,11 +12,20 @@ def extract_log_details(log_line):
         return log_type, log_message
     return "", log_line.strip()
 
-def is_valid_log(log_message):
+def is_valid_log(log_line):
     """
-    Check if a log message is valid (non-empty and contains at least one alphabetic character).
+    Check if a log line is valid:
+    1. Starts with 'Info' or 'Error' (case-insensitive).
+    2. Contains a log message with at least one alphabetic character.
     """
-    return bool(log_message.strip()) and any(char.isalpha() for char in log_message)
+    if not log_line.strip():
+        return False  # Empty line
+    log_type, log_message = extract_log_details(log_line)
+    if log_type.lower() not in ["info", "error"]:
+        return False  # Invalid log type
+    if not any(char.isalpha() for char in log_message):
+        return False  # Log message without alphabets
+    return True
 
 def compare_logs(file1_path, file2_path, output_excel):
     # Read log files
@@ -84,67 +33,86 @@ def compare_logs(file1_path, file2_path, output_excel):
         logs1 = f1.readlines()
         logs2 = f2.readlines()
     
+    total_lines_file1 = len(logs1)
+    total_lines_file2 = len(logs2)
+    
+    # Filter valid logs
+    valid_logs1 = [line.strip() for line in logs1 if is_valid_log(line)]
+    valid_logs2 = [line.strip() for line in logs2 if is_valid_log(line)]
+
+    valid_lines_file1 = len(valid_logs1)
+    valid_lines_file2 = len(valid_logs2)
+    
     # Data for Excel
     comparison_data = []
     
-    # Create a mapping of valid log messages from File 1 (ignoring dates) for quick lookup
+    # Create a mapping of valid log messages from File 1 and File 2 for quick lookup
     file1_map = {}
-    for idx, line in enumerate(logs1):
+    file2_map = {}
+
+    for idx, line in enumerate(valid_logs1):
         log_type, log_message = extract_log_details(line)
-        if is_valid_log(log_message):
-            file1_map[log_message] = idx + 1  # Store line number
+        file1_map[log_message] = idx + 1  # Store line number
+    
+    for idx, line in enumerate(valid_logs2):
+        log_type, log_message = extract_log_details(line)
+        file2_map[log_message] = idx + 1  # Store line number
 
-    for idx2, line2 in enumerate(logs2):
+    # Process File 2 logs for comparison
+    for idx2, line2 in enumerate(valid_logs2):
         log_type2, log2_message = extract_log_details(line2)
-        if not is_valid_log(log2_message):
-            continue  # Skip invalid lines
-
         exact_match = "No"
-        approx_match = "No"
-        approx_line_numbers = []
+        approx_match1 = "No"
+        approx_line_numbers1 = []
         difference = ""
-        
-        # Extract log type and message from File 1 for the same line (if it exists)
-        if idx2 < len(logs1):
-            log_type1, log1_message = extract_log_details(logs1[idx2])
+
+        # Find corresponding valid File 1 log for the same line number
+        if idx2 < len(valid_logs1):
+            log_type1, log1_message = extract_log_details(valid_logs1[idx2])
         else:
             log_type1, log1_message = "", ""
 
-        # Skip invalid lines in File 1
-        if not is_valid_log(log1_message):
-            log_type1, log1_message = "", ""
-
         # Exact match check
-        if log2_message == log1_message and idx2 < len(logs1):
+        if log2_message == log1_message and idx2 < len(valid_logs1):
             exact_match = "Yes"
         
-        # Approximate match check
+        # Approximate match 1 check (File 2 log in File 1)
         if log2_message in file1_map:
-            approx_match = "Yes"
-            approx_line_numbers.append(file1_map[log2_message])
+            approx_match1 = "Yes"
+            approx_line_numbers1.append(file1_map[log2_message])
         
         # Highlighting differences for approximate matches
-        if approx_match == "Yes" and exact_match == "No":
-            diff_lines = [logs1[ln - 1].strip() for ln in approx_line_numbers]
+        if approx_match1 == "Yes" and exact_match == "No":
+            diff_lines = [valid_logs1[ln - 1] for ln in approx_line_numbers1]
             difference = " | ".join(diff_lines)
         
         # Log type match check
-        log_type_match = "Yes" if log_type1 == log_type2 else "No"
+        log_type_match = "Yes" if log_type1.lower() == log_type2.lower() else "No"
+
+        # Approximate match 2 check (File 1 log in File 2)
+        approx_match2 = "Yes" if log1_message in file2_map else "No"
         
         # Record the comparison
         comparison_data.append({
-            "File 1 Line No.": idx2 + 1 if idx2 < len(logs1) else "",
+            "File 1 Line No.": file1_map.get(log2_message, ""),  # Line number from File 1 if approx matched
             "Log Type from File 1": log_type1,
             "Log from File 1": log1_message,
             "File 2 Line No.": idx2 + 1,
             "Log Type from File 2": log_type2,
             "Log from File 2": log2_message,
             "Exact Match": exact_match,
-            "Approx Match": approx_match,
-            "Approx Line No.": ", ".join(map(str, approx_line_numbers)),
+            "Approx Match 1 (File 2 in File 1)": approx_match1,
+            "Approx Line No. (File 1)": ", ".join(map(str, approx_line_numbers1)),
             "Difference": difference,
-            "Log Type Match": log_type_match
+            "Log Type Match": log_type_match,
+            "Approx Match 2 (File 1 in File 2)": approx_match2
         })
+
+    # Print line counts
+    print(f"Total lines in File 1: {total_lines_file1}")
+    print(f"Valid lines in File 1: {valid_lines_file1}")
+    print(f"Total lines in File 2: {total_lines_file2}")
+    print(f"Valid lines in File 2: {valid_lines_file2}")
 
     # Convert to DataFrame
     df = pd.DataFrame(comparison_data)
@@ -155,5 +123,3 @@ def compare_logs(file1_path, file2_path, output_excel):
 
 # Example usage
 compare_logs("file1.log", "file2.log", "log_comparison_filtered.xlsx")
- 
-
