@@ -1,0 +1,32 @@
+import pandas as pd
+
+def search_word_in_dataframe(df, word, case_sensitive=True):
+    """
+    Searches for a word in all columns of a Pandas DataFrame.
+
+    Args:
+        df (pd.DataFrame): The DataFrame to search in.
+        word (str): The word to search for.
+        case_sensitive (bool, optional): Whether the search is case-sensitive. Defaults to True.
+
+    Returns:
+        pd.DataFrame: A DataFrame containing rows where the word was found.
+                       Returns an empty DataFrame if the word is not found.
+    """
+    if not case_sensitive:
+        df = df.apply(lambda x: x.astype(str).str.lower())
+        word = word.lower()
+    
+    mask = df.apply(lambda x: x.astype(str).str.contains(word))
+    filtered_df = df[mask.any(axis=1)]
+    return filtered_df
+
+# Example Usage
+data = {'col1': ['apple', 'banana', 'cherry'], 
+        'col2': ['date', 'elderberry', 'fig'],
+        'col3': ['grape', 'honeydew', 'kiwi']}
+df = pd.DataFrame(data)
+
+word_to_search = 'apple'
+result_df = search_word_in_dataframe(df, word_to_search)
+print(result_df)
