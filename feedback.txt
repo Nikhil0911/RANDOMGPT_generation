@@ -1,0 +1,51 @@
+ChatGPT
+Memory full
+You said:
+Help me write a feedback of the new office that just opened and I was selected as one of the uat tester to work for one day from there. It was very fresh, newly painted smelled good. But it had a few mosquitoes. The chairs and desk were new but the there was no option for high rise desk. Meeting room were looking amazing with great combination of colors used. The cafeteria and other rooms were not fully ready but there was a little canteen where people can sit and have coffee and snacks but in there, there was no tap where to wash hands. There was no TV screen where we could see news or sports. There were very few charging cables available, only to those seats where the monitor was attached. Also the monitor was attached to very limited seats. 
+I can think of these many stuff. Ask me any more relevant questions. I'll answer then, I'd request you to please create an informal feedback summary in hullet points, each point should be short and crisp but still explaining everything. 
+ChatGPT said:
+Perfect — I’ll make it conversational yet structured, like a feedback you’d casually give after testing the new office setup.
+Before I finalize it, could you please tell me a few more quick details so I can make it more complete? 👇
+
+How was the internet/Wi-Fi speed and connectivity?
+
+Were air conditioning or lighting comfortable and sufficient?
+
+Did you notice if washrooms were clean and accessible?
+
+Any feedback on security, entry process, or reception area?
+
+Did you feel the location and commute were convenient?
+
+Any general vibe or atmosphere — did it feel lively, peaceful, or a bit under setup?
+
+Once you share this, I’ll craft a clean informal feedback summary in bullet points covering all these aspects.
+
+You said:
+Everything else was good, be it internet, ac, washroom, security, atmosphere. But yeah when we come out of lift, we don't know which way to go, nobody was there to guide me on 2nd floor and then I saw a small slip of paper mentioning welcome to hsbc. Reception was empty when I reached, must be because I reached very early or it is just new. 
+ChatGPT said:
+Perfect — thanks for the details!
+Here’s a crisp, informal feedback summary you can share — short, natural, and neatly organized in bullet points 👇
+
+🏢 Feedback on the New Office (UAT Visit)
+The office feels fresh and vibrant — newly painted walls, pleasant fragrance, and overall a great first impression.
+
+Desks and chairs are brand new and comfortable, but there’s no option for high-rise desks yet.
+
+Meeting rooms look amazing — loved the color combination and modern setup.
+
+The cafeteria and other rooms are still under setup; however, the small canteen area was nice for coffee/snacks.
+
+In the canteen, no tap was available to wash hands — something to be added soon.
+
+There was no TV screen to display news or sports in the common area — could make breaks more engaging.
+
+Limited charging points and monitors — only a few seats had them.
+
+A few mosquitoes around — minor but noticeable.
+
+When stepping out of the lift on the 2nd floor, there was no clear direction or signage initially; only a small paper note saying “Welcome to HSBC.”
+
+Reception was empty when I arrived (probably because it’s still new or I came early).
+
+Everything else — Wi-Fi, air conditioning, washrooms, security, and overall atmosphere — was smooth and well-maintained.
