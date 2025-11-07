@@ -49,3 +49,19 @@ When stepping out of the lift on the 2nd floor, there was no clear direction or 
 Reception was empty when I arrived (probably because it’s still new or I came early).
 
 Everything else — Wi-Fi, air conditioning, washrooms, security, and overall atmosphere — was smooth and well-maintained.
+
+
+
+
+##### ----- Performance ----- #####
+
+This year, I consistently delivered quality outcomes across multiple projects while meeting deadlines and maintaining precision. In the CFTC project, I replicated the US and UK logic to four new regions, handled region-specific enhancements independently, and managed maintenance for three months. I also contributed to the ActOne project, replicating and validating Excessive Cancels logic, investigating alerts, and supporting Advance Layering validation despite data limitations.
+
+In monitoring, I created KPI code, collaborated to resolve errors, and coordinated with IMR and vendors to provide detailed clarifications. I showed accountability by acknowledging errors in ActOne, correcting them, and proactively helping peers in the Trading Hub project.
+
+I ensured smooth handover of the CFTC project through thorough KT and continued assisting teammates. Beyond project work, I engaged in office activities and UAT testing. I completed LinkedIn Learning courses on analytics and ML and am pursuing the ICA certification to strengthen future performance.
+
+I responded constructively to feedback, handled urgent requests efficiently, and maintained a positive, learning-oriented attitude. Overall, I demonstrated reliability, ownership, and continuous improvement—consistently performing to expectations while building readiness for greater responsibilities.
+
+
+
