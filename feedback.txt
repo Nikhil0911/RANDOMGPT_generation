@@ -63,5 +63,18 @@ I ensured smooth handover of the CFTC project through thorough KT and continued 
 
 I responded constructively to feedback, handled urgent requests efficiently, and maintained a positive, learning-oriented attitude. Overall, I demonstrated reliability, ownership, and continuous improvement—consistently performing to expectations while building readiness for greater responsibilities.
 
+--
+
+At first glance, the alerts appeared to be duplicates, which made it seem like there might be a technical issue. However, after analysis, we found that the alerts were actually legitimate. They involved consecutive orders with the same characteristics (same product, same account), and each cancellation triggered a valid alert.
+
+The reason they looked duplicated in ActOne is that the aggregation threshold is applied only at the **UI level**, not at the **logic level**. This means ActOne groups alerts visually for display purposes, but the underlying logic still generates separate alerts whenever the threshold criteria are met.
+
+**Example:**
+One Excessive Cancels alert was triggered for 120 orders with the same Product-Account-Date combination. Since the UI aggregation threshold is 30, ActOne displayed this as **4 separate alerts**, each representing 30 orders (30 × 4 = 120). On the UI, it appears as though 3 of these alerts are duplicates of the first one because they share the same product and account details.
+
+However, when inspected from the order perspective, all **120 orders were unique and consecutive**, meaning all four alerts were legitimate and expected based on the logic.
+
+This same aggregation behavior applied to all alerts where the total number of orders exceeded 30, which explains the high number of alerts observed. There was **no technical issue**—only a UI-level grouping effect that made legitimate alerts appear duplicated.
+
 
 
