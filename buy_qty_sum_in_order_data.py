@@ -67,6 +67,130 @@ def calculate_order_effect(df):
 
     return res_df, buy_total, sell_total
 
+# Generate timestamps
+base_time = datetime.now()
+times = [base_time + timedelta(minutes=i) for i in range(25)]
+
+df = pd.DataFrame({
+    "order_id": [
+        # Order 1: NEW → AMEND → EXEC
+        "101","101","101",
+        
+        # Order 2: NEW → CANCEL
+        "102","102",
+        
+        # Order 3: NEW only
+        "103",
+        
+        # Order 4: NEW → AMEND → AMEND
+        "104","104","104",
+        
+        # Order 5: NEW → AMEND → CANCEL
+        "105","105","105",
+        
+        # Order 6: NEW → EXEC
+        "106","106",
+        
+        # Order 7: NEW → AMEND
+        "107","107",
+        
+        # Order 8: NEW only
+        "108",
+        
+        # Order 9: NEW → CANCEL (different qty)
+        "109","109",
+        
+        # Order 10: Long chain NEW → AMEND → AMEND → EXEC
+        "110","110","110","110"
+    ],
+    
+    "side": [
+        "Buy","Buy","Buy",
+        "Sell","Sell",
+        "Buy",
+        "Sell","Sell","Sell",
+        "Buy","Buy","Buy",
+        "Sell","Sell",
+        "Buy","Buy",
+        "Sell",
+        "Buy","Buy",
+        "Sell","Sell","Sell","Sell"
+    ],
+    
+    "event_type": [
+        # 101
+        "NEW","AMEND","EXECUTED",
+        # 102
+        "NEW","CANCEL",
+        # 103
+        "NEW",
+        # 104
+        "NEW","AMEND","AMEND",
+        # 105
+        "NEW","AMEND","CANCEL",
+        # 106
+        "NEW","EXECUTED",
+        # 107
+        "NEW","AMEND",
+        # 108
+        "NEW",
+        # 109
+        "NEW","CANCEL",
+        # 110
+        "NEW","AMEND","AMEND","EXECUTED"
+    ],
+    
+    "quantity": [
+        # 101
+        50, 70, 70,
+        # 102
+        40, 40,
+        # 103
+        90,
+        # 104
+        10, 20, 30,
+        # 105
+        100, 120, 120,
+        # 106
+        60, 60,
+        # 107
+        33, 50,
+        # 108
+        200,
+        # 109
+        150, 100,
+        # 110
+        80, 100, 130, 130
+    ],
+    
+    "price": np.random.randint(100, 300, 25),
+    "tradetime": times,
+    "symbol": ["AAPL","AAPL","AAPL",
+               "MSFT","MSFT",
+               "TSLA",
+               "NVDA","NVDA","NVDA",
+               "GOOG","GOOG","GOOG",
+               "META","META",
+               "BTC","BTC",
+               "ETH",
+               "BRK","BRK",
+               "NFLX","NFLX","NFLX","NFLX"
+              ],
+    "account": ["ACC1","ACC1","ACC1",
+                "ACC2","ACC2",
+                "ACC1",
+                "ACC3","ACC3","ACC3",
+                "ACC2","ACC2","ACC2",
+                "ACC4","ACC4",
+                "ACC5","ACC5",
+                "ACC1",
+                "ACC3","ACC3",
+                "ACC6","ACC6","ACC6","ACC6"
+               ]
+})
+
+print(df)
+
 res_df, buy_total, sell_total = calculate_order_effect(df)
 
 print("Per-order final quantities:")
