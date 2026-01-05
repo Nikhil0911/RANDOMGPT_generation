@@ -198,3 +198,59 @@ print(res_df)
 
 print("\nFinal BUY total:", buy_total)
 print("Final SELL total:", sell_total)
+
+## ---------------------------------------------------------------------
+
+import pandas as pd
+
+def compute_final_qty(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    df columns expected:
+      - account
+      - symbol
+      - side        ('BUY' / 'SELL')
+      - trade_id    (logical order id)
+      - time        (sortable event time or sequence)
+      - order_type  ('NEW', 'AMEND', 'CANCEL', 'EXECUTED')
+      - quantity
+    Returns a DataFrame with columns: side, final_sum_qty
+    """
+    # 1) Drop terminal rows when deciding which event supplies the quantity
+    non_terminal = df[~df['order_type'].isin(['EXECUTED', 'CANCEL'])].copy()
+
+    # 2) Sort so that last in time per order is the desired quantity
+    non_terminal = non_terminal.sort_values(
+        ['account', 'symbol', 'side', 'trade_id', 'time']
+    )
+
+    # 3) Take last non-terminal event per logical order
+    last_non_terminal = non_terminal.groupby(
+        ['account', 'symbol', 'side', 'trade_id'], as_index=False
+    ).tail(1)
+
+    # 4) Only NEW/AMEND define a live quantity to be counted
+    live = last_non_terminal[
+        last_non_terminal['order_type'].isin(['NEW', 'AMEND'])
+    ]
+
+    # 5) Sum quantities separately per side
+    result = (
+        live.groupby('side', as_index=False)['quantity']
+        .sum()
+        .rename(columns={'quantity': 'final_sum_qty'})
+    )
+
+    return result
+
+rows = [
+    [3, 'TSLA', 't9',  1, 'NEW',      10, 'BUY'],
+    [3, 'TSLA', 't10', 1, 'AMEND',    20, 'BUY'],
+    [3, 'TSLA', 't11', 1, 'AMEND',    30, 'BUY'],
+    [3, 'TSLA', 't12', 2, 'NEW',      40, 'SELL'],
+    [3, 'TSLA', 't13', 2, 'AMEND',    50, 'SELL'],
+    [3, 'TSLA', 't14', 2, 'EXECUTED', 50, 'SELL'],
+]
+cols = ['account', 'symbol', 'time', 'trade_id', 'order_type', 'quantity', 'side']
+df = pd.DataFrame(rows, columns=cols)
+
+print(compute_final_qty(df))
