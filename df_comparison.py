@@ -1,153 +1,112 @@
-
 import pandas as pd
 import numpy as np
 
-# -----------------------------
+# ---------------------------------------------------
 # SAMPLE DATA
-# -----------------------------
+# ---------------------------------------------------
 df1 = pd.DataFrame({
-    "id": [1, 2, 3],
-    "name": ["John", "Alice", "Bob"],
-    "city": ["Delhi", "Mumbai", "Pune"],
-    "amount": [100, 200, 300]
+    "name": ["John", "Alice", "Bob", "David"],
+    "city": ["Delhi", "Mumbai", "Pune", "Chennai"],
+    "amount": [100, 200, 300, 400]
 })
 
 df2 = pd.DataFrame({
-    "id": [11, 12, 13],
-    "name": ["John", "Alicia", "Bob"],
-    "city": ["Delhi", "Mumbai", "Pune"],
-    "amount": [100, 250, 300]
+    "name": ["John", "Alicia", "Bob", "David"],
+    "city": ["Delhi", "Mumbai", "Pune", "Chennai"],
+    "amount": [100, 250, 300, 450]
 })
 
-# -----------------------------
-# CONFIG
-# -----------------------------
-MATCH_THRESHOLD = 0.70     # 70%
 COMPARE_COLUMNS = ["name", "city", "amount"]
+THRESHOLD = 0.7
 
-# -----------------------------
-# PREP
-# -----------------------------
-total_cols = len(COMPARE_COLUMNS)
+# ---------------------------------------------------
+# STEP 1: CREATE BLOCKING KEY
+# Reduce comparisons drastically
+# ---------------------------------------------------
+# Example:
+# Compare only rows having same city
 
+df1["block_key"] = df1["city"].astype(str).str.lower()
+df2["block_key"] = df2["city"].astype(str).str.lower()
+
+# ---------------------------------------------------
+# STEP 2: GROUP SECOND DF
+# Fast lookup
+# ---------------------------------------------------
+df2_groups = {
+    key: grp.reset_index()
+    for key, grp in df2.groupby("block_key")
+}
+
+# ---------------------------------------------------
+# STEP 3: MATCH
+# ---------------------------------------------------
+used_df2 = set()
 results = []
 
-# To ensure one row matches only once
-used_df1 = set()
-used_df2 = set()
+total_cols = len(COMPARE_COLUMNS)
 
-# -----------------------------
-# COMPARE ALL ROWS
-# -----------------------------
-all_matches = []
+for idx1, row1 in df1.iterrows():
 
-for i, row1 in df1.iterrows():
+    block = row1["block_key"]
 
-    for j, row2 in df2.iterrows():
+    # Skip if no candidate exists
+    if block not in df2_groups:
+        continue
 
-        matched_cols = []
-        unmatched_cols = []
+    candidates = df2_groups[block]
+
+    best_match = None
+    best_score = -1
+
+    # Compare only small subset
+    for _, row2 in candidates.iterrows():
+
+        idx2 = row2["index"]
+
+        # ensure unique matching
+        if idx2 in used_df2:
+            continue
 
         match_count = 0
+        matched_cols = []
 
         for col in COMPARE_COLUMNS:
 
-            val1 = row1[col]
-            val2 = row2[col]
+            v1 = row1[col]
+            v2 = row2[col]
 
-            # Handle NaN comparison
-            if pd.isna(val1) and pd.isna(val2):
+            if pd.isna(v1) and pd.isna(v2):
                 is_match = True
             else:
-                is_match = val1 == val2
+                is_match = v1 == v2
 
             if is_match:
                 match_count += 1
                 matched_cols.append(col)
-            else:
-                unmatched_cols.append(col)
 
-        match_percent = match_count / total_cols
+        score = match_count / total_cols
 
-        # Keep only >=70% matches
-        if match_percent >= MATCH_THRESHOLD:
+        if score > best_score:
+            best_score = score
 
-            all_matches.append({
-                "df1_index": i,
-                "df2_index": j,
+            best_match = {
+                "df1_index": idx1,
+                "df2_index": idx2,
+                "match_percent": round(score * 100, 2),
                 "match_count": match_count,
-                "total_columns": total_cols,
-                "match_percent": round(match_percent * 100, 2),
-                "matched_columns": matched_cols,
-                "unmatched_columns": unmatched_cols
-            })
+                "matched_columns": matched_cols
+            }
 
-# -----------------------------
-# SORT BEST MATCHES FIRST
-# -----------------------------
-all_matches = sorted(
-    all_matches,
-    key=lambda x: x["match_count"],
-    reverse=True
-)
+    # Keep only threshold matches
+    if best_match and best_score >= THRESHOLD:
 
-# -----------------------------
-# UNIQUE MATCHING
-# One row can match only once
-# -----------------------------
-final_matches = []
+        results.append(best_match)
+        used_df2.add(best_match["df2_index"])
 
-for match in all_matches:
-
-    i = match["df1_index"]
-    j = match["df2_index"]
-
-    if i not in used_df1 and j not in used_df2:
-
-        final_matches.append(match)
-
-        used_df1.add(i)
-        used_df2.add(j)
-
-# -----------------------------
+# ---------------------------------------------------
 # FINAL OUTPUT
-# -----------------------------
-result_df = pd.DataFrame(final_matches)
+# ---------------------------------------------------
+result_df = pd.DataFrame(results)
 
 print(result_df)
-
-
-### Output Example
-
-| df1_index | df2_index | match_count | total_columns | match_percent |
-| --------- | --------- | ----------- | ------------- | ------------- |
-| 0         | 0         | 3           | 3             | 100           |
-| 2         | 2         | 3           | 3             | 100           |
-
----
-
-### What This Code Does
-
-* Compares every row of `df1` with every row of `df2`
-* Counts how many columns match
-* Keeps only rows with ≥ 70% match
-* Ensures:
-
-  * one row from `df1` matches only once
-  * one row from `df2` matches only once
-* Picks the best possible match first
-
----
-
-### You Can Easily Extend This
-
-You can add:
-
-* fuzzy string matching
-* tolerance for numeric values
-* ignored columns
-* weighted matching
-* output unmatched rows separately
-* very fast optimized version for large datasets
-
-For reconciliation tasks like yours, fuzzy matching + tolerance-based matching becomes very useful.
