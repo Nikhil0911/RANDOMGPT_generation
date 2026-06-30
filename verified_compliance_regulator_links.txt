@@ -1,0 +1,174 @@
+VERIFIED GLOBAL COMPLIANCE REGULATOR LINKS
+===========================================
+
+U.S. SECURITIES AND EXCHANGE COMMISSION (SEC)
+---------------------------------------------
+* SEC Form 10-K Structure Manual:
+  https://www.sec.gov/files/form10-k.pdf
+* SEC Regulation S-K Reference Portal:
+  https://www.sec.gov/rules-regulations/regulation-s-k
+* SEC Sarbanes-Oxley Act Sec. 404 Cost Study:
+  https://www.sec.gov/news/studies/2009/sox-404_study.pdf
+* SEC Dodd-Frank Section 922 Whistleblower Text:
+  https://www.sec.gov/files/dodd-frank-sec-922.pdf
+* SEC Cybersecurity Risk Disclosures Final Rule:
+  https://www.sec.gov/files/rules/final/2023/33-11216.pdf
+
+FINANCIAL CONDUCT AUTHORITY (FCA)
+----------------------------------
+* FCA SM&CR Policy Implementation Guide:
+  https://www.fca.org.uk/publication/policy/ps18-14.pdf
+* FCA PS21/3: Building Operational Resilience Guide:
+  https://www.fca.org.uk/publication/policy/ps21-3.pdf
+* FCA FG22/5: Final Guidance on the Consumer Duty:
+  https://www.fca.org.uk/publication/finalised-guidance/fg22-5.pdf
+* Official FCA Handbook Portal:
+  https://handbook.fca.org.uk/home
+
+FINANCIAL CRIMES ENFORCEMENT NETWORK (FINCEN)
+---------------------------------------------
+* FinCEN Statutes and Regulations Main Directory:
+  https://www.fincen.gov/resources/statutes-regulations
+* FinCEN Customer Due Diligence (CDD) Advisory:
+  https://www.fincen.gov/sites/default/files/advisory/2020-05-18/FinCEN%20Advisory%20CDD%20Recertification%20FINAL.pdf
+* FinCEN Corporate Transparency Act Small Entity Compliance Guide:
+  https://www.fincen.gov/system/files/shared/BOI_Small_Compliance_Guide.v1.1-FINAL.pdf
+* FinCEN Ransomware and Financial Cyber-Crime Risks Advisory:
+  https://www.fincen.gov/sites/default/files/advisory/2021-11/FinCEN%20Ransomware%20Advisory_FINAL_508_.pdf
+* FFIEC Bank Secrecy Act / AML Examination Complete Manual:
+  https://bsaaml.ffiec.gov/manual/PrintableManual
+
+FEDERAL RESERVE BOARD (THE FED)
+-------------------------------
+* Federal Reserve Commercial Bank Examination Manual:
+  https://www.federalreserve.gov/publications/files/cbem.pdf
+* Federal Reserve SR Letter 11-7: Model Risk Management Standards:
+  https://www.federalreserve.gov/supervisionreg/srletters/sr1107a1.pdf
+* Federal Reserve CCAR Capital Analysis Assessment Framework:
+  https://www.federalreserve.gov/publications/files/2024-ccar-assessment-framework.pdf
+* Interagency Guidance on Third-Party Relationships & Vendor Risk:
+  https://www.federalreserve.gov/newsevents/pressreleases/files/bcreg20230606a1.pdf
+
+EUROPEAN CENTRAL BANK (ECB)
+---------------------------
+* ECB Guide to Banking Supervision and the SSM:
+  https://www.bankingsupervision.europa.eu/ecb/pub/pdf/ssm.guidebankingsupervision201409.en.pdf
+* ECB Guide on Climate-Related and Environmental Risk Controls:
+  https://www.bankingsupervision.europa.eu/ecb/pub/pdf/ssm.guideclimate-relatedenvironmentalrisks202011.en.pdf
+* ECB Guide on Corporate Governance and Risk Culture Assessment:
+  https://www.bankingsupervision.europa.eu/banking/letterstobanks/shared/pdf/2024/ssm.governance_risk_culture_guide.en.pdf
+* ECB Consolidated Guide to Internal Mathematical Risk Models:
+  https://www.bankingsupervision.europa.eu/ecb/pub/pdf/ssm.guideinternalmodels202402.en.pdf
+* SSM Assessment Methodology for Operational Risk Audit Frameworks:
+  https://www.bankingsupervision.europa.eu/banking/srep/operational_risk/shared/pdf/ssm.operational_risk_methodology.en.pdf
+
+FINANCIAL INDUSTRY REGULATORY AUTHORITY (FINRA)
+-----------------------------------------------
+* FINRA Codified Broker-Dealer Rules Directory:
+  https://www.finra.org/rules-guidance/rulebooks/finra-rules
+* FINRA Annual Regulatory Oversight & Priorities Report:
+  https://www.finra.org/sites/default/files/2024-01/2024-regulatory-oversight-report.pdf
+* FINRA Regulatory Notice 20-21: Cybersecurity Best Practices:
+  https://www.finra.org/sites/default/files/2020-07/Regulatory-Notice-20-21.pdf
+* FINRA Independent Testing Template for Anti-Money Laundering:
+  https://www.finra.org/sites/default/files/2020-09/small-firm-aml-template.pdf
+* FINRA Regulatory Notice 21-17: Retail Sales & Social Media Policies:
+  https://www.finra.org/sites/default/files/2021-04/Regulatory-Notice-21-17.pdf
+
+COMMODITY FUTURES TRADING COMMISSION (CFTC)
+-------------------------------------------
+* CFTC Chief Compliance Officer Annual Reporting Final Rules:
+  https://www.cftc.gov/LawRegulation/FederalRegister/finalrules/2018-18451.html
+* National Futures Association (NFA) Rulebook Registry:
+  https://www.nfa.futures.org/rulebook/rules.aspx
+* CFTC Enforcement Advisory on Corporate Cooperation & Remediation:
+  https://www.cftc.gov/media/3911/enfadvisorycooperation0520/download
+* CFTC Part 23 Swap Dealer Risk Management Guidance:
+  https://www.cftc.gov/media/8086/part23swapdealerriskmanagement012023/download
+* CFTC Commodity Exchange Act Statutory Rules System:
+  https://www.cftc.gov/LawRegulation/CommodityExchangeAct/index.htm
+
+MONETARY AUTHORITY OF SINGAPORE (MAS)
+-------------------------------------
+* MAS Technology Risk Management (TRM) Guidelines:
+  https://www.mas.gov.sg/-/media/mas/regulations-and-guidance/guidelines/financial-institutions/technology-risk-management-guidelines--18-jan-2021.pdf
+* MAS Notice 626: Anti-Money Laundering & CFT Mandates for Banks:
+  https://www.mas.gov.sg/-/media/mas/regulations-and-guidance/notices/banking/mas-notice-626.pdf
+* MAS Guidelines on Environmental Risk Management for Banks:
+  https://www.mas.gov.sg/-/media/mas/regulations-and-guidance/guidelines/financial-institutions/guidelines-on-environmental-risk-management-for-banks.pdf
+* MAS Guidelines on Financial Institution Outsourcing & Vendor Risks:
+  https://www.mas.gov.sg/-/media/mas/regulations-and-guidance/guidelines/financial-institutions/guidelines-on-outsourcing-9-july-2018.pdf
+* MAS Guidelines on Executive Fit and Proper Criteria:
+  https://www.mas.gov.sg/-/media/mas/regulations-and-guidance/guidelines/financial-institutions/guidelines-on-fit-and-proper-criteria.pdf
+
+HONG KONG MONETARY AUTHORITY (HKMA)
+-----------------------------------
+* HKMA SPM Module CG-1: Corporate Governance Framework:
+  https://www.hkma.gov.hk/media/eng/doc/key-functions/banking-stability/supervisory-policy-manual/CG-1.pdf
+* HKMA SPM Module TM-G-1: Principles for Technology Risk Management:
+  https://www.hkma.gov.hk/media/eng/doc/key-functions/banking-stability/supervisory-policy-manual/TM-G-1.pdf
+* HKMA SPM Module OR-2: Operational Resilience Structural Standards:
+  https://www.hkma.gov.hk/media/eng/doc/key-functions/banking-stability/supervisory-policy-manual/OR-2.pdf
+* HKMA Official Guideline on Anti-Money Laundering and Counter-Terrorist Financing:
+  https://www.hkma.gov.hk/media/eng/doc/key-functions/banking-stability/guideline-on-aml-ctf.pdf
+* HKMA SPM Module GS-1: Climate Risk Management Framework:
+  https://www.hkma.gov.hk/media/eng/doc/key-functions/banking-stability/supervisory-policy-manual/GS-1.pdf
+
+FEDERAL FINANCIAL SUPERVISORY AUTHORITY (BAFIN)
+-----------------------------------------------
+* BaFin Circular 09/2017: Risk Management Standards - MaRisk:
+  https://www.bafin.de/SharedDocs/Downloads/DE/Rundschreiben/dl_rs_1709_marisk_ba.pdf
+* BaFin Circular 10/2017: Banking IT Supervisory Requirements - BAIT:
+  https://www.bafin.de/SharedDocs/Downloads/DE/Rundschreiben/dl_rs_1710_bait_ba.pdf
+* BaFin Interpretation Text on the German Money Laundering Act:
+  https://www.bafin.de/SharedDocs/Downloads/EN/Interpretationstext/dl_wa_gwg_en.pdf
+* BaFin Notice on Handling Sustainability Risks Framework:
+  https://www.bafin.de/SharedDocs/Downloads/EN/Merkblatt/dl_mb_Nachhaltigkeitsrisiken_en.pdf
+* BaFin Circular 05/2018: Insurance IT Requirements - VAIT:
+  https://www.bafin.de/SharedDocs/Downloads/DE/Rundschreiben/dl_rs_1805_vait_va.pdf
+
+FEDERAL TRADE COMMISSION (FTC)
+------------------------------
+* FTC Gramm-Leach-Bliley Act Safeguards Rule Compliance Portal:
+  https://www.ftc.gov/business-guidance/resources/ftc-safeguards-rule-what-your-business-needs-know
+* FTC Six-Step Compliance Guide for the COPPA Rule:
+  https://www.ftc.gov/business-guidance/resources/childrens-online-privacy-protection-rule-six-step-compliance
+* FTC Health Breach Notification Rule Enforcement Standards Guide:
+  https://www.ftc.gov/business-guidance/resources/complying-ftcs-health-breach-notification-rule
+* FTC Consumer Credit Practices Rule Compliance Guide:
+  https://www.ftc.gov/business-guidance/resources/complying-credit-practices-rule
+* FTC Deceptive Native Advertising & Formatting Disclosure Manual:
+  https://www.ftc.gov/business-guidance/resources/native-advertising-guide-businesses
+
+OFFICE OF THE COMPTROLLER OF THE CURRENCY (OCC)
+-----------------------------------------------
+* OCC Comptroller’s Handbook: Corporate and Risk Governance Manual:
+  https://www.occ.gov/publications-and-resources/publications/comptrollers-handbook/files/corporate-risk-governance/pub-ch-corporate-risk-governance.pdf
+* OCC Comptroller’s Handbook: Bank Supervision Process Guide:
+  https://www.occ.gov/publications-and-resources/publications/comptrollers-handbook/files/bank-supervision-process/pub-ch-bank-supervision-process.pdf
+* OCC Comptroller’s Handbook: Bank Secrecy Act / AML Audit Manual:
+  https://www.occ.gov/publications-and-resources/publications/comptrollers-handbook/files/bank-secrecy-act/pub-ch-bsa-aml.pdf
+* OCC Comptroller’s Handbook: Quantitative Model Risk Management Evaluation:
+  https://www.occ.gov/publications-and-resources/publications/comptrollers-handbook/files/model-risk-management/pub-ch-model-risk-management.pdf
+* OCC Bulletin 2013-29: Third-Party Relationships Consolidated Portal:
+  https://www.occ.gov/news-issuances/bulletins/2013/bulletin-2013-29.html
+
+PRUDENTIAL REGULATION AUTHORITY (PRA)
+-------------------------------------
+* The Interactive Digital PRA Rulebook Platform:
+  https://www.prarulebook.co.uk/
+* PRA SS1/21: Operational Resilience Mapping Framework:
+  https://www.bankofengland.co.uk/-/media/boe/files/prudential-regulation/supervisory-statement/2021/ss121-mar21.pdf
+* PRA SS2/21: Outsourcing & Third-Party Vendor Risk Management:
+  https://www.bankofengland.co.uk/-/media/boe/files/prudential-regulation/supervisory-statement/2021/ss221-mar21.pdf
+* PRA SS3/18: Model Risk Management Principles for Stress Testing:
+  https://www.bankofengland.co.uk/-/media/boe/files/prudential-regulation/supervisory-statement/2018/ss318-april-2018.pdf
+* The PRA’s Structural Approach to Banking System Supervision:
+  https://www.bankofengland.co.uk/-/media/boe/files/prudential-regulation/approach/banking-approach-2018.pdf
+
+MAIN HUB PORTALS FOR BROKEN LINKS / ALTERNATIVE MASTER DIRECTORIES
+------------------------------------------------------------------
+* EDPB Master Guidelines and Recommendations Hub:
+  https://www.edpb.europa.eu/our-work-tools/general-guidance/guidelines-recommendations-best-practices_en
+* ASIC Find a Document Directory:
+  https://asic.gov.au/regulatory-resources/find-a-document/
