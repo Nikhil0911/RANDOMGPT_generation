@@ -1,0 +1,41 @@
+Here is the fully revised, executive-ready write-up.
+It completely shifts the narrative from a simple "message count check" to a comprehensive **field-by-field content reconciliation**, and cleanly separates the **FO (GFIX)** and **EQ (Prism)** workflows so an outsider can easily follow both processes.
+# Data Content Reconciliation Summary (Surv IT): Upstream vs. NICE Downstream
+## Objective
+Surv IT performed a comprehensive manual data content reconciliation to verify both the **completeness (volume)** and **data integrity (field-by-field content accuracy)** of transactional messages. This audit ensures that messages transmitted by upstream platforms perfectly match the field-level data received downstream by NICE for all in-scope trade dates.
+## Scope of Validation
+The reconciliation covered specific regions, trade dates, and systems across two major asset classes:
+ * **Futures & Options (FO) Workflow:** Upstream **GFIX** vs. Downstream **NICE**
+   * *Trade Dates:* 30 April (Regions: APAC, EMEA, US)
+ * **Equities (EQ) Workflow:** Upstream **Prism** vs. Downstream **NICE**
+   * *Trade Dates:* 20 April (Regions: US, APAC), 21 April (Region: EMEA)
+## Process Overview (Differentiated by Workflow)
+To ensure absolute precision, data streams were processed through parallel reconciliation tracks tailored to each upstream system architecture before executing cell-by-cell data matching.
+### Step 1: Baseline Extraction & Filtering
+ * **FO Track (GFIX):** Raw message logs were extracted from HSBC’s GFIX upstream platform and NICE downstream databases. Because GFIX contains global data, region and specific time filters were applied to isolate the data points strictly matching the in-scope trade window.
+ * **EQ Track (Prism):** Prism production logs and downstream NICE server data were extracted for the specific target trade dates.
+### Step 2: Primary Key Mapping & Data Merging
+For both workflows, **MsgSeqNum (Tag-34)** was identified and isolated as the primary key. Using this unique key, an inner join merge was executed to stitch upstream and downstream records together into a unified comparison matrix, ensuring each message could be independently scrutinized.
+### Step 3: Structural Schema Validation
+ * **FO Track (GFIX):** Schema profiling revealed GFIX transmits a broader data structure (97 fields) than NICE ingests (55 fields in EMEA, 84 fields in US, 48 fields in APAC). The team verified that NICE fields represent a strict subset of GFIX fields, confirming that no critical upstream data fields went missing during transmission.
+ * **EQ Track (Prism):** Fields were systematically mapped between Prism data structures and NICE tables to establish a baseline of common fields for validation.
+### Step 4: Cellular Field-by-Field Content Matching
+Rather than relying on total message counts, the core of this reconciliation involved an exhaustive **field-by-field content comparison** across all common fields for every single message. Every data point (including transaction prices, quantities, timestamps, and identifiers) was cross-checked cell-by-cell to guarantee 100% data fidelity between source and target.
+## Outcomes and Issues Identified
+### 1. FO Flow (GFIX vs. NICE Results)
+ * **Content Accuracy:** Following the application of time and required field filters, a perfect 1:1 match was achieved.
+ * **Data Fidelity:** Every single field value matched identically across all common fields for the EMEA, US, and APAC regions. There was zero data corruption, truncation, or field mismatch identified in downstream ingestion.
+ * **Volume Alignment:** Initial volume differences were proven to be out-of-scope upstream traffic; once filtered, localized counts aligned perfectly.
+### 2. EQ Flow (Prism vs. NICE Results)
+ * **Content Accuracy:** Content and volume variances were identified for certain in-scope trade dates during the initial field matching pass.
+ * **NICE-Side Resolution:** For instances where Surv IT’s log-derived data did not reconcile with NICE, the NICE team executed a server-side backend data re-pull for the impacted trade dates. The refreshed data content successfully resolved the variances and matched Surv IT records perfectly.
+ * **Prism-Side (In Progress):** A granular, OrderId-level content investigation is currently underway to resolve remaining discrepancies. Prism is actively generating and extracting OrderId-level message data for the impacted SystemIDs, trade dates, and EventType blocks to support final root-cause analysis and complete closure.
+## Evidence & Audit Artifacts Available
+The following audit trail components are archived and available for independent validation:
+ * **Upstream Core Data Extracts:** Raw GFIX (FO) and Prism (EQ) logs.
+ * **Downstream Ingestion Extracts:** Primary NICE data pulls, including backend server re-pull logs for the impacted EQ dates.
+ * **Surv IT Independent Validation Logs:** Independent production log extractions and the automated field-by-field matching scripts used for validation.
+ * **Open Items Tracker:** The active investigation matrix for pending Prism OrderId/EventType supporting data.
+## Current Status
+ * **FO (GFIX vs. NICE):** **Closed.** Content reconciliation is 100% complete across all in-scope dates. Screened upstream data and downstream NICE data match perfectly at both the volume and individual field-value levels.
+ * **EQ (Prism vs. NICE):** **In Progress.** NICE-side adjustments are fully verified and aligned. Final completion is pending the receipt and field validation of the granular OrderId logs from the Prism upstream system.
